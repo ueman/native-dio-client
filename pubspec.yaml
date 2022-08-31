@@ -1,0 +1,21 @@
+name: native_dio_client
+description: A starting point for Dart libraries or applications.
+version: 1.0.0
+repository: https://github.com/ueman/native-dio-client
+issue_tracker: https://github.com/ueman/native-dio-client/issues
+funding:
+  - https://github.com/sponsors/ueman
+  - https://www.buymeacoffee.com/jonasuekoetter
+
+environment:
+  sdk: '>=2.18.0 <3.0.0'
+
+dependencies:
+  dio: ^4.0.6
+  cupertino_http: ^0.0.3
+  cronet_http: ^0.0.1
+  http: ^0.13.4
+
+dev_dependencies:
+  lints: ^2.0.0
+  test: ^1.16.0
