@@ -14,8 +14,8 @@ class DioToHttpConversionLayer extends HttpClientAdapter {
     Stream<Uint8List>? requestStream,
     Future<dynamic>? cancelFuture,
   ) async {
-    final response =
-        await client.send(await _fromOptionsAndStream(options, requestStream));
+    final request = await _fromOptionsAndStream(options, requestStream);
+    final response = await client.send(request);
     return response.toDioResponseBody();
   }
 
@@ -26,7 +26,7 @@ class DioToHttpConversionLayer extends HttpClientAdapter {
     RequestOptions options,
     Stream<Uint8List>? requestStream,
   ) async {
-    final request = StreamedRequest(
+    final request = Request(
       options.method,
       options.uri,
     );
@@ -35,9 +35,6 @@ class DioToHttpConversionLayer extends HttpClientAdapter {
         .map((e) => MapEntry(e.key, e.value.toString()))));
     request.followRedirects = options.followRedirects;
     request.maxRedirects = options.maxRedirects;
-    if (requestStream != null) {
-      request.sink.add(List<int>.from(await requestStream.toList()));
-    }
 
     return request;
   }
