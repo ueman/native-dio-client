@@ -1,5 +1,5 @@
 name: native_dio_client
-description: A starting point for Dart libraries or applications.
+description: A client for Dio which makes use of cupertino_http and cronet_http to delegate HTTP requests to the native platform.
 version: 0.0.1-dev
 repository: https://github.com/ueman/native-dio-client
 issue_tracker: https://github.com/ueman/native-dio-client/issues
@@ -8,7 +8,7 @@ funding:
   - https://www.buymeacoffee.com/jonasuekoetter
 
 environment:
-  sdk: '>=2.18.0 <3.0.0'
+  sdk: '>=2.17.5 <3.0.0'
 
 dependencies:
   dio: ^4.0.6
