@@ -1,35 +1,32 @@
 # Native Dio Client
 
+----
+
+> Note: Experimental
+
+The underlying technology is still considered experimental, therefore this
+is also considered experimental.
+
+----
+
+
 A client for [Dio](https://pub.dev/packages/dio) which makes use of [`cupertino_http`](https://pub.dev/packages/cupertino_http) and [`cronet_http`](https://pub.dev/packages/cronet_http) to delegate HTTP requests to the native platform instead of the `dart:io` platforms.
 
 Inspired by the [Dart 2.18 release blog](https://medium.com/dartlang/dart-2-18-f4b3101f146c).
 
+# Motivation
 
------
+Using the native platform implementation, rather than the socket-based [`dart:io` HttpClient](https://api.dart.dev/stable/dart-io/HttpClient-class.html) implemententation, has several advantages:
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+- It automatically supports platform features such VPNs and HTTP proxies.
+- It supports many more configuration options such as only allowing access through WiFi and blocking cookies.
+- It supports more HTTP features such as HTTP/3 and custom redirect handling.
 
-## Features
-
-TODO: List what your package can do. Maybe include images, gifs, or videos.
-
-## Getting started
-
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
-
-## Usage
-
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder. 
+# Example
 
 ```dart
-const like = 'sample';
+final dioClient = Dio();
+if (Platform.isIOS || Platform.isMacOS || Platform.isAndroid) {
+  dioClient.httpClientAdapter = NativeAdapter();
+}
 ```
-
-## Additional information
-
-TODO: Tell users more about the package: where to find more information, how to 
-contribute to the package, how to file issues, what response they can expect 
-from the package authors, and more.
