@@ -1,6 +1,6 @@
 name: native_dio_client
 description: A starting point for Dart libraries or applications.
-version: 1.0.0
+version: 0.0.1-dev
 repository: https://github.com/ueman/native-dio-client
 issue_tracker: https://github.com/ueman/native-dio-client/issues
 funding:
