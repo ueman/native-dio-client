@@ -1,6 +1,6 @@
 name: native_dio_client
 description: A client for Dio which makes use of cupertino_http and cronet_http to delegate HTTP requests to the native platform.
-version: 0.0.1-dev
+version: 0.0.1-dev+1
 repository: https://github.com/ueman/native-dio-client
 issue_tracker: https://github.com/ueman/native-dio-client/issues
 funding:
@@ -8,7 +8,8 @@ funding:
   - https://www.buymeacoffee.com/jonasuekoetter
 
 environment:
-  sdk: '>=2.17.5 <3.0.0'
+  sdk: '>=2.18.0 <3.0.0'
+  flutter: ">=3.0.0"
 
 dependencies:
   dio: ^4.0.6
@@ -19,3 +20,10 @@ dependencies:
 dev_dependencies:
   lints: ^2.0.0
   test: ^1.16.0
+
+platforms:
+  android:
+  ios:
+  linux:
+  macos:
+  windows:
