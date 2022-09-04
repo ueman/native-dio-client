@@ -2,13 +2,13 @@ import 'dart:typed_data';
 
 import 'package:cronet_http/cronet_client.dart';
 import 'package:dio/dio.dart';
-import 'package:native_dio_client/src/dio_to_http_conversion_layer.dart';
+import 'package:native_dio_client/src/conversion_layer_adapter.dart';
 
 class CronetAdapter extends HttpClientAdapter {
   CronetAdapter(CronetClient client)
-      : _conversionLayer = DioToHttpConversionLayer(client);
+      : _conversionLayer = ConversionLayerAdapter(client);
 
-  final DioToHttpConversionLayer _conversionLayer;
+  final ConversionLayerAdapter _conversionLayer;
 
   @override
   void close({bool force = false}) => _conversionLayer.close(force: force);

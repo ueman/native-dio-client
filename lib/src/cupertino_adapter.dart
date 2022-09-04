@@ -3,14 +3,14 @@ import 'dart:typed_data';
 import 'package:cupertino_http/cupertino_client.dart';
 import 'package:cupertino_http/cupertino_http.dart';
 import 'package:dio/dio.dart';
-import 'package:native_dio_client/src/dio_to_http_conversion_layer.dart';
+import 'package:native_dio_client/src/conversion_layer_adapter.dart';
 
 class CupertinoAdapter extends HttpClientAdapter {
   CupertinoAdapter(URLSessionConfiguration configuration)
-      : _conversionLayer = DioToHttpConversionLayer(
+      : _conversionLayer = ConversionLayerAdapter(
             CupertinoClient.fromSessionConfiguration(configuration));
 
-  final DioToHttpConversionLayer _conversionLayer;
+  final ConversionLayerAdapter _conversionLayer;
   @override
   void close({bool force = false}) => _conversionLayer.close(force: force);
 

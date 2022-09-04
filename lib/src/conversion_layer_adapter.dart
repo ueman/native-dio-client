@@ -1,12 +1,14 @@
+import 'dart:async';
+import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:dio/dio.dart';
 import 'package:http/http.dart';
 
-class DioToHttpConversionLayer extends HttpClientAdapter {
+class ConversionLayerAdapter extends HttpClientAdapter {
   final Client client;
 
-  DioToHttpConversionLayer(this.client);
+  ConversionLayerAdapter(this.client);
 
   @override
   Future<ResponseBody> fetch(
@@ -33,8 +35,25 @@ class DioToHttpConversionLayer extends HttpClientAdapter {
 
     request.headers.addAll(Map.fromEntries(options.headers.entries
         .map((e) => MapEntry(e.key, e.value.toString()))));
+
     request.followRedirects = options.followRedirects;
     request.maxRedirects = options.maxRedirects;
+
+    if (requestStream != null) {
+      var completer = Completer<Uint8List>();
+      var sink = ByteConversionSink.withCallback(
+        (bytes) => completer.complete(Uint8List.fromList(bytes)),
+      );
+      requestStream.listen(
+        sink.add,
+        onError: completer.completeError,
+        onDone: sink.close,
+        cancelOnError: true,
+      );
+      var bytes = await completer.future;
+
+      request.bodyBytes = bytes;
+    }
 
     return request;
   }

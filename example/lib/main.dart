@@ -1,10 +1,8 @@
-import 'dart:async';
+import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:native_dio_client/native_dio_client.dart';
-import 'package:cupertino_http/cupertino_client.dart';
-import 'package:cupertino_http/cupertino_http.dart';
 
 void main() {
   runApp(const MyApp());
@@ -54,8 +52,12 @@ class _MyHomePageState extends State<MyHomePage> {
             child: const Text('make post request'),
           ),
           ElevatedButton(
-            onPressed: _doClientRequest,
+            onPressed: _doHttpClientRequest,
             child: const Text('make client request'),
+          ),
+          ElevatedButton(
+            onPressed: _doHttpClientPostRequest,
+            child: const Text('make client post request'),
           ),
         ],
       ),
@@ -101,7 +103,12 @@ class _MyHomePageState extends State<MyHomePage> {
         ..allowsConstrainedNetworkAccess = false
         ..allowsExpensiveNetworkAccess = false,
     );
-    final response = await dio.post<String>('https://httpbin.org/post');
+    final response = await dio.post<String>(
+      'https://httpbin.org/post',
+      queryParameters: <String, dynamic>{'foo': 'bar'},
+      data: jsonEncode(<String, dynamic>{'foo': 'bar'}),
+      options: Options(headers: <String, dynamic>{'foo': 'bar'}),
+    );
 
     await showDialog<void>(
       context: context,
@@ -122,13 +129,44 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  void _doClientRequest() async {
+  void _doHttpClientRequest() async {
     final config = URLSessionConfiguration.ephemeralSessionConfiguration()
       ..allowsCellularAccess = false
       ..allowsConstrainedNetworkAccess = false
       ..allowsExpensiveNetworkAccess = false;
     final client = CupertinoClient.fromSessionConfiguration(config);
     final response = await client.get(Uri.parse('https://flutter.dev/'));
+    await showDialog<void>(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text('Response ${response.statusCode}'),
+          content: SingleChildScrollView(
+            child: Text(response.body),
+          ),
+          actions: [
+            MaterialButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text('Close'),
+            )
+          ],
+        );
+      },
+    );
+  }
+
+  void _doHttpClientPostRequest() async {
+    final config = URLSessionConfiguration.ephemeralSessionConfiguration()
+      ..allowsCellularAccess = false
+      ..allowsConstrainedNetworkAccess = false
+      ..allowsExpensiveNetworkAccess = false;
+    final client = CupertinoClient.fromSessionConfiguration(config);
+
+    final response = await client.post(
+      Uri.parse('https://httpbin.org/post'),
+      body: jsonEncode(<String, dynamic>{'foo': 'bar'}),
+    );
+
     await showDialog<void>(
       context: context,
       builder: (context) {
