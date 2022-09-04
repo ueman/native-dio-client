@@ -5,12 +5,16 @@ import 'package:cupertino_http/cupertino_http.dart';
 import 'package:dio/dio.dart';
 import 'package:native_dio_client/src/conversion_layer_adapter.dart';
 
+/// A [HttpClientAdapter] for Dio which delegates HTTP requests
+/// to the native platform by making use of
+/// [cupertino_http](https://pub.dev/packages/cupertino_http).
 class CupertinoAdapter extends HttpClientAdapter {
   CupertinoAdapter(URLSessionConfiguration configuration)
       : _conversionLayer = ConversionLayerAdapter(
             CupertinoClient.fromSessionConfiguration(configuration));
 
   final ConversionLayerAdapter _conversionLayer;
+
   @override
   void close({bool force = false}) => _conversionLayer.close(force: force);
 

@@ -8,22 +8,33 @@ import 'package:dio/adapter.dart';
 import 'package:native_dio_client/src/cronet_adapter.dart';
 import 'package:native_dio_client/src/cupertino_adapter.dart';
 
+/// A [HttpClientAdapter] for Dio which delegates HTTP requests
+/// to the native platform, where possible.
+///
+/// On iOS and macOS this uses [cupertino_http](https://pub.dev/packages/cupertino_http)
+/// to make HTTP requests.
+///
+/// On Android this uses [cronet_http](https://pub.dev/packages/cronet_http) to
+/// make HTTP requests.
 class NativeAdapter extends HttpClientAdapter {
   NativeAdapter({
-    CronetClient? cronetClient,
-    URLSessionConfiguration? configuration,
+    CronetEngine? androidCronetEngine,
+    URLSessionConfiguration? cupertinoConfiguration,
   }) {
     if (Platform.isAndroid) {
-      _adapter = CronetAdapter(cronetClient ?? CronetClient());
+      _adapter = CronetAdapter(androidCronetEngine);
     } else if (Platform.isIOS || Platform.isMacOS) {
       _adapter = CupertinoAdapter(
-        configuration ?? URLSessionConfiguration.defaultSessionConfiguration(),
+        cupertinoConfiguration ??
+            URLSessionConfiguration.defaultSessionConfiguration(),
       );
     } else {
       _adapter = DefaultHttpClientAdapter();
     }
   }
+
   late final HttpClientAdapter _adapter;
+
   @override
   void close({bool force = false}) => _adapter.close(force: force);
 

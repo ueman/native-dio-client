@@ -68,10 +68,11 @@ class _MyHomePageState extends State<MyHomePage> {
     final dio = Dio();
 
     dio.httpClientAdapter = NativeAdapter(
-      configuration: URLSessionConfiguration.ephemeralSessionConfiguration()
-        ..allowsCellularAccess = false
-        ..allowsConstrainedNetworkAccess = false
-        ..allowsExpensiveNetworkAccess = false,
+      cupertinoConfiguration:
+          URLSessionConfiguration.ephemeralSessionConfiguration()
+            ..allowsCellularAccess = false
+            ..allowsConstrainedNetworkAccess = false
+            ..allowsExpensiveNetworkAccess = false,
     );
     final response = await dio.get<String>('https://flutter.dev');
 
@@ -98,10 +99,11 @@ class _MyHomePageState extends State<MyHomePage> {
     final dio = Dio();
 
     dio.httpClientAdapter = NativeAdapter(
-      configuration: URLSessionConfiguration.ephemeralSessionConfiguration()
-        ..allowsCellularAccess = false
-        ..allowsConstrainedNetworkAccess = false
-        ..allowsExpensiveNetworkAccess = false,
+      cupertinoConfiguration:
+          URLSessionConfiguration.ephemeralSessionConfiguration()
+            ..allowsCellularAccess = false
+            ..allowsConstrainedNetworkAccess = false
+            ..allowsExpensiveNetworkAccess = false,
     );
     final response = await dio.post<String>(
       'https://httpbin.org/post',

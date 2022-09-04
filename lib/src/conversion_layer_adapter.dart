@@ -5,6 +5,12 @@ import 'dart:typed_data';
 import 'package:dio/dio.dart';
 import 'package:http/http.dart';
 
+/// A conversion layer which translates Dio HTTP requests to
+/// [http](https://pub.dev/packages/http) compatible requests.
+/// This way there's no need to implement custom [HttpClientAdapter]
+/// for each platform. Therefore, the required effort to add tests is kept
+/// to a minimum. Since `CupertinoClient` and `CronetClient` depend anyway on
+/// `http` this also doesn't add any additional dependency.
 class ConversionLayerAdapter extends HttpClientAdapter {
   final Client client;
 
