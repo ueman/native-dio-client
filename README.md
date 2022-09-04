@@ -7,6 +7,8 @@
 The underlying technology is still considered experimental, therefore this
 is also considered experimental.
 
+If you encounter bugs, consider fixing it by opening a PR.
+
 ----
 
 
