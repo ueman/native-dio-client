@@ -1,4 +1,4 @@
-## 0.0.1-dev+1
+## 0.0.2
 
 - Raise minimal required version of `cupertino_http` to `^0.0.9` and `cronet_http` to `^0.0.3`
 
