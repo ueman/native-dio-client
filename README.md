@@ -1,16 +1,13 @@
 # Native Dio Client
 
-----
+[![pub package](https://img.shields.io/pub/v/native_dio_client.svg)](https://pub.dev/packages/native_dio_client) [![likes](https://img.shields.io/pub/likes/native_dio_client)](https://pub.dev/packages/native_dio_client/score) [![popularity](https://img.shields.io/pub/popularity/native_dio_client)](https://pub.dev/packages/native_dio_client/score) [![pub points](https://img.shields.io/pub/points/native_dio_client)](https://pub.dev/packages/native_dio_client/score)
 
 > Note: Experimental
 
 The underlying technology is still considered experimental, therefore this
 is also considered experimental.
 
-If you encounter bugs, consider fixing it by opening a PR.
-
-----
-
+If you encounter bugs, consider fixing it by opening a PR or at least contribute a failing test case.
 
 A client for [Dio](https://pub.dev/packages/dio) which makes use of [`cupertino_http`](https://pub.dev/packages/cupertino_http) and [`cronet_http`](https://pub.dev/packages/cronet_http) to delegate HTTP requests to the native platform instead of the `dart:io` platforms.
 
@@ -32,3 +29,8 @@ if (Platform.isIOS || Platform.isMacOS || Platform.isAndroid) {
   dioClient.httpClientAdapter = NativeAdapter();
 }
 ```
+
+## 📣 About the author
+
+- [![Twitter Follow](https://img.shields.io/twitter/follow/ue_man?style=social)](https://twitter.com/ue_man)
+- [![GitHub followers](https://img.shields.io/github/followers/ueman?style=social)](https://github.com/ueman)
